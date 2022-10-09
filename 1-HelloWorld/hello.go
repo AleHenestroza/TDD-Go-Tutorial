@@ -29,5 +29,7 @@ func greetingPrefix(language string) (prefix string) {
 }
 
 func main() {
-	fmt.Println(Hello("world", ""))
+	fmt.Println(Hello("Alejandro", spanish))
+	fmt.Println(Hello("Phillipe", french))
+	fmt.Println(Hello("Henry", englishHelloPrefix))
 }
