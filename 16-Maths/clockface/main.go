@@ -1,12 +1,13 @@
 package main
 
 import (
-	clockface "go-tdd-tutorial/16-Maths"
 	"os"
 	"time"
+
+	"go-tdd-tutorial/16-Maths/svg"
 )
 
 func main() {
 	t := time.Now()
-	clockface.SVGWriter(os.Stdout, t)
+	svg.SVGWriter(os.Stdout, t)
 }
