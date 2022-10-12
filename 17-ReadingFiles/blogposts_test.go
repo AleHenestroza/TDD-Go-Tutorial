@@ -16,11 +16,27 @@ func (s StubFailingFs) Open(name string) (fs.File, error) {
 	return nil, errors.New("Oh now, I will always fail")
 }
 
+const (
+	firstBody = `Title: Post 1
+Description: Description 1
+Tags: tdd, go
+---
+Hello
+world`
+	secondBody = `Title: Post 2
+Description: Description 2
+Tags: rust, borrow-checker
+---
+B
+L
+T`
+)
+
 func TestNewBlogPosts(t *testing.T) {
 	t.Run("read from fileSystem", func(t *testing.T) {
 		fs := fstest.MapFS{
-			"hello-github.md": {Data: []byte("Title: hello github")},
-			"hello-world.md":  {Data: []byte("Title: hello world")},
+			"testfile.md":  {Data: []byte(firstBody)},
+			"testfile2.md": {Data: []byte(secondBody)},
 		}
 
 		posts, err := blogposts.NewPostsFromFS(fs)
@@ -29,12 +45,13 @@ func TestNewBlogPosts(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		got := posts[0]
-		want := blogposts.Post{Title: "hello github"}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got %+v, want %+v", got, want)
-		}
+		assertPost(t, posts[0], blogposts.Post{
+			Title:       "Post 1",
+			Description: "Description 1",
+			Tags:        []string{"tdd", "go"},
+			Body: `Hello
+world`,
+		})
 	})
 
 	t.Run("read from fileSystem throws error", func(t *testing.T) {
@@ -46,4 +63,11 @@ func TestNewBlogPosts(t *testing.T) {
 			t.Errorf("expected error, but got nil")
 		}
 	})
+}
+
+func assertPost(t testing.TB, got blogposts.Post, want blogposts.Post) {
+	t.Helper()
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %+v, want %+v", got, want)
+	}
 }
