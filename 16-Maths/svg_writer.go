@@ -21,7 +21,7 @@ const svgStart = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 const bezel = `<circle cx="150" cy="150" r="100" style="fill:#fff;stroke:#000;stroke-width:5px;"/>`
 const svgEnd = `</svg>`
 
-func SvgWriter(w io.Writer, t time.Time) {
+func SVGWriter(w io.Writer, t time.Time) {
 	io.WriteString(w, svgStart)
 	io.WriteString(w, bezel)
 	writeSecondsHand(w, t)
