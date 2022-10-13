@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Go Blog</title>
+        <meta charset="utf-8" />
+        <meta name="description" content="First blog made with Go templates" />
+    </head>
+    <body>
+        <nav role="navigation">
+            <h1>Building Gopher's blog</h1>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="archive">Archive</a></li>
+            </ul>
+        </nav>
+        <main>
+
+<h2>Hello, world</h1>
+
+<p>This is the description</p>
+
+Tags: <ul><li>go</li><li>tdd</li></ul>
+
+        </main>
+        <footer>
+            <ul>
+                <li><a href="https://github.com/alehenestroza">GitHub</a></li>
+                <li><a href="https://linkedin.com/in/alejandro-henestroza">LinkedIn</a></li>
+            </ul>
+        </footer>
+    </body>
+</html>

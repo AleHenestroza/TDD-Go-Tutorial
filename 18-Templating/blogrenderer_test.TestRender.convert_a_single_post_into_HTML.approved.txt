@@ -1,5 +1,0 @@
-<h1>Hello, world</h1>
-
-<p>This is the description</p>
-
-Tags: <ul><li>go</li><li>tdd</li></ul>
