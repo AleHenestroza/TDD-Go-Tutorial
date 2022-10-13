@@ -17,14 +17,11 @@
         </nav>
         <main>
 
-            <h2>Hello, world</h1>
-
-            <p>This is the description</p>
-
-            Tags: <ul><li>go</li><li>tdd</li></ul>
-
-            <p>This is a post</p>
-
+        <ol>
+            <li><a href="/post/hello-world">Hello World</a></li>
+            <li><a href="/post/hello-world-2">Hello World 2</a></li>
+            
+        </ol>
 
         </main>
         <footer>
@@ -35,3 +32,4 @@
         </footer>
     </body>
 </html>
+

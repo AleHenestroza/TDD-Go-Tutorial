@@ -1,7 +1,9 @@
 {{template "head" .}}
-<h2>{{.Title}}</h1>
+            <h2>{{.Title}}</h1>
 
-<p>{{.Description}}</p>
+            <p>{{.Description}}</p>
 
-Tags: <ul>{{range .Tags}}<li>{{.}}</li>{{end}}</ul>
+            Tags: <ul>{{range .Tags}}<li>{{.}}</li>{{end}}</ul>
+
+            {{.HTMLBody}}
 {{template "foot" .}}

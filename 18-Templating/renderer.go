@@ -4,6 +4,9 @@ import (
 	"embed"
 	"html/template"
 	"io"
+
+	"github.com/gomarkdown/markdown"
+	"github.com/gomarkdown/markdown/parser"
 )
 
 var (
@@ -12,14 +15,13 @@ var (
 )
 
 type PostRenderer struct {
-	templ *template.Template
+	templ    *template.Template
+	mdParser *parser.Parser
 }
 
-func (r *PostRenderer) Render(w io.Writer, p Post) error {
-	if err := r.templ.Execute(w, p); err != nil {
-		return err
-	}
-	return nil
+type postViewModel struct {
+	Post
+	HTMLBody template.HTML
 }
 
 func NewPostRenderer() (*PostRenderer, error) {
@@ -27,5 +29,23 @@ func NewPostRenderer() (*PostRenderer, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &PostRenderer{templ: templ}, nil
+
+	extensions := parser.CommonExtensions | parser.AutoHeadingIDs
+	parser := parser.NewWithExtensions(extensions)
+
+	return &PostRenderer{templ: templ, mdParser: parser}, nil
+}
+
+func (r *PostRenderer) Render(w io.Writer, p Post) error {
+	return r.templ.ExecuteTemplate(w, "blog.gohtml", newPostVM(p, r))
+}
+
+func (r *PostRenderer) RenderIndex(w io.Writer, posts []Post) error {
+	return r.templ.ExecuteTemplate(w, "index.gohtml", posts)
+}
+
+func newPostVM(p Post, r *PostRenderer) postViewModel {
+	vm := postViewModel{Post: p}
+	vm.HTMLBody = template.HTML(markdown.ToHTML([]byte(p.Body), r.mdParser, nil))
+	return vm
 }
